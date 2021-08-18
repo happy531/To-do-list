@@ -1,3 +1,6 @@
+import TaskDoneButton from "../UI/Buttons/TaskDoneButton";
+import TaskRemoveButton from "../UI/Buttons/TaskRemoveButton";
+
 const Task = (props) => {
   const removeTaskHandler = () => {
     props.onRemoveTask(props.id);
@@ -5,7 +8,10 @@ const Task = (props) => {
   return (
     <li>
       {props.text}
-      <button onClick={removeTaskHandler}>Delete</button>
+      <div>
+        <TaskDoneButton />
+        <TaskRemoveButton onClick={removeTaskHandler} />
+      </div>
     </li>
   );
 };

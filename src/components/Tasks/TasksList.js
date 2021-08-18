@@ -1,5 +1,5 @@
 import Task from "./Task";
-import Card from "../UI/Card";
+import Card from "../UI/Card/Card";
 import classes from "./TasksList.module.css";
 
 const TasksList = (props) => {
