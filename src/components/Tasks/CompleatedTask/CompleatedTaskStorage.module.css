@@ -1,0 +1,26 @@
+.storage {
+  margin: 0 auto;
+  width: 90%;
+  height: 3.5vh;
+}
+
+@media (orientation: landscape) {
+  .storage {
+    max-width: 30vw;
+  }
+}
+
+.storage div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #4d4d4d;
+  font: inherit;
+  font-size: 2vh;
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border: 1px solid #ccc;
+  text-align: left;
+  line-height: 100%;
+}

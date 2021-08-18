@@ -2,7 +2,12 @@
   margin: 2rem auto;
   width: 90%;
   height: 7vh;
-  max-width: 30vw;
+}
+
+@media (orientation: landscape) {
+  .input {
+    max-width: 30vw;
+  }
 }
 
 .input form {

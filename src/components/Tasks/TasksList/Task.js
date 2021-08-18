@@ -1,5 +1,5 @@
-import TaskDoneButton from "../UI/Buttons/TaskDoneButton";
-import TaskRemoveButton from "../UI/Buttons/TaskRemoveButton";
+import TaskDoneButton from "../../UI/Buttons/TaskDoneButton";
+import TaskRemoveButton from "../../UI/Buttons/TaskRemoveButton";
 
 const Task = (props) => {
   const removeTaskHandler = () => {
