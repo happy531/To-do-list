@@ -7,18 +7,17 @@
 .tasks ul {
   width: 100%;
   list-style: none;
-  padding: 1rem;
-}
-
-.tasks.empty ul {
-  display: none;
 }
 
 .tasks li {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  height: 6vh;
+  max-width: 30vw;
+  font-size: 2.5vh;
+  color: #4d4d4d;
+  padding: 0.5rem 1rem 0.5rem 1rem;
   border: 1px solid #ccc;
-  margin: 0.5rem 0;
-  padding: 0.5rem;
 }

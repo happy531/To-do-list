@@ -4,7 +4,8 @@ import TasksList from "./components/Tasks/TasksList";
 
 function App() {
   const [tasks, setTasks] = useState([
-    { id: Math.random().toString(), text: "do the dishes" },
+    { id: Math.random().toString(), text: "Your first task" },
+    { id: Math.random().toString(), text: "Your second task" },
   ]);
 
   const addNewTaskHandler = (text) => {
