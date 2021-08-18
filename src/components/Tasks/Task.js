@@ -1,8 +1,11 @@
 const Task = (props) => {
+  const removeTaskHandler = () => {
+    props.onRemoveTask(props.id);
+  };
   return (
     <li>
       {props.text}
-      <button>Delete</button>
+      <button onClick={removeTaskHandler}>Delete</button>
     </li>
   );
 };

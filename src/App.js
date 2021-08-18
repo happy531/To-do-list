@@ -7,10 +7,21 @@ function App() {
     { id: Math.random().toString(), text: "do the dishes" },
   ]);
 
+  const addNewTaskHandler = (text) => {
+    setTasks((prevTasksState) => {
+      return [...prevTasksState, { id: Math.random().toString(), text: text }];
+    });
+  };
+
+  const removeTaskHandler = (id) => {
+    const newList = tasks.filter((task) => task.id !== id);
+    setTasks(newList);
+  };
+
   return (
     <Fragment>
-      <NewTask />
-      <TasksList tasks={tasks} />
+      <NewTask onAddNewTask={addNewTaskHandler} />
+      <TasksList onRemoveTask={removeTaskHandler} tasks={tasks} />
     </Fragment>
   );
 }

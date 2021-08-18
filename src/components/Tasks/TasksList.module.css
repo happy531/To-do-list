@@ -10,6 +10,10 @@
   padding: 1rem;
 }
 
+.tasks.empty ul {
+  display: none;
+}
+
 .tasks li {
   display: flex;
   justify-content: space-between;
