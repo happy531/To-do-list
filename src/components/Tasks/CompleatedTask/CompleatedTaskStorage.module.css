@@ -27,10 +27,11 @@
 
 .storage li {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+  flex-grow: 1;
   width: 100%;
-  height: 5vh;
+  min-height: 5vh;
   font-size: 2.5vh;
   font-style: italic;
   text-decoration: line-through;

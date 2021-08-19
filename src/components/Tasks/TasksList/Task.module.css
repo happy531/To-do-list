@@ -1,0 +1,11 @@
+.task-text {
+  display: block;
+  margin-left: 0.55vw;
+  width: 100%;
+}
+
+@media (max-width: 1023px) {
+  .task-text {
+    margin-left: 2vw;
+  }
+}

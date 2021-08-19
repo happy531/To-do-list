@@ -1,6 +1,8 @@
 import TaskDoneButton from "../../UI/Buttons/TaskDoneButton";
 import TaskRemoveButton from "../../UI/Buttons/TaskRemoveButton";
 
+import classes from "./Task.module.css";
+
 const Task = (props) => {
   const removeTaskHandler = () => {
     props.onRemoveTask(props.id);
@@ -10,10 +12,12 @@ const Task = (props) => {
   };
   return (
     <li>
-      <p>{props.text}</p>
-      <div>
+      <div className={classes["accept-btn"]}>
         <TaskDoneButton onClick={compleateTaskHandler} />
-        <TaskRemoveButton className={"btn-end"} onClick={removeTaskHandler} />
+      </div>
+      <label className={classes["task-text"]}>{props.text}</label>
+      <div className={classes["delete-btn"]}>
+        <TaskRemoveButton onClick={removeTaskHandler} />
       </div>
     </li>
   );
