@@ -13,16 +13,16 @@
   transition: 0.25s;
 }
 
+.options {
+  border-radius: 0%;
+  background: white;
+  border: none;
+}
+
 .button.done:hover,
 .button.done:active {
   background: #b3eed1;
   border-color: #b3eed1;
-}
-
-.button.remove:hover,
-.button.remove:active {
-  background: #eeb3b3;
-  border-color: #eeb3b3;
 }
 
 .button:focus {
