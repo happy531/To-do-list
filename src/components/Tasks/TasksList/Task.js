@@ -21,7 +21,7 @@ const Task = (props) => {
   return (
     <Fragment>
       <li
-        onMouseEnter={() => setShowOptionsButton(true)}
+        onMouseOver={() => setShowOptionsButton(true)}
         onMouseLeave={() =>
           showOptions ? setShowOptionsButton(true) : setShowOptionsButton(false)
         }
