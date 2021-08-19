@@ -25,11 +25,24 @@ function App() {
     setTasks(newList);
   };
 
+  const compleateTaskHandler = (id) => {
+    const newList = tasks.filter((task) => task.id !== id);
+    const [compleatedTask] = tasks.filter((task) => task.id === id);
+    setTasks(newList);
+    setCompleatedTasks((prevCompleatedTasks) => {
+      return [...prevCompleatedTasks, compleatedTask];
+    });
+  };
+
   return (
     <Fragment>
       <NewTask onAddNewTask={addNewTaskHandler} />
-      <TasksList onRemoveTask={removeTaskHandler} tasks={tasks} />
-      <CompleatedTaskStorage />
+      <TasksList
+        onRemoveTask={removeTaskHandler}
+        onCompleateTask={compleateTaskHandler}
+        tasks={tasks}
+      />
+      <CompleatedTaskStorage compleatedTasks={compleatedTasks} />
     </Fragment>
   );
 }

@@ -2,7 +2,7 @@ import classes from "./TaskButton.module.css";
 const TaskRemoveButton = (props) => {
   return (
     <button
-      className={`${classes.button} ${classes.remove}`}
+      className={`${classes.button} ${classes.remove} ${props.className}`}
       type={props.type || "button"}
       onClick={props.onClick}
     >

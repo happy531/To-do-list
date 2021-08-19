@@ -5,12 +5,15 @@ const Task = (props) => {
   const removeTaskHandler = () => {
     props.onRemoveTask(props.id);
   };
+  const compleateTaskHandler = () => {
+    props.onCompleateTask(props.id);
+  };
   return (
     <li>
-      {props.text}
+      <p>{props.text}</p>
       <div>
-        <TaskDoneButton />
-        <TaskRemoveButton onClick={removeTaskHandler} />
+        <TaskDoneButton onClick={compleateTaskHandler} />
+        <TaskRemoveButton className={"btn-end"} onClick={removeTaskHandler} />
       </div>
     </li>
   );

@@ -1,7 +1,6 @@
 .tasks {
   margin: 2rem auto;
   width: 90%;
-  /* max-width: 30vw; */
 }
 
 .tasks ul {
@@ -14,8 +13,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 6vh;
-  /* max-width: 30vw; */
+  height: 5vh;
   font-size: 2.5vh;
   color: #4d4d4d;
   padding: 0.5rem 0.6rem 0.5rem 1rem;
