@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import TasksListContext from "../../store/tasks-list-context";
 import Card from "../../UI/Card/Card";
 import CompleatedTask from "./CompleatedTask";
 import classes from "./CompleatedTaskStorage.module.css";
 
 const CompleatedTaskStorage = (props) => {
+  const ctx = useContext(TasksListContext);
+
   const [showCompleated, setShowCompleated] = useState(false);
 
   const showCompleatedTasks = () => {
@@ -27,7 +30,7 @@ const CompleatedTaskStorage = (props) => {
       </div>
       {showCompleated && (
         <ul>
-          {props.compleatedTasks.map((task) => (
+          {ctx.compleatedTasksList.map((task) => (
             <CompleatedTask key={task.id} id={task.id} text={task.text} />
           ))}
         </ul>

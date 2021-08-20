@@ -1,4 +1,5 @@
-import { Fragment, useState, useRef } from "react";
+import { Fragment, useState, useRef, useContext } from "react";
+import TasksListContext from "../../store/tasks-list-context";
 import TaskDoneButton from "../../UI/Buttons/TaskDoneButton";
 import TaskOptionsButton from "../../UI/Buttons/TaskOptionsButton";
 import Card from "../../UI/Card/Card";
@@ -10,14 +11,15 @@ const Task = (props) => {
   const [showOptions, setShowOptions] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
+  const ctx = useContext(TasksListContext);
   const editingInputRef = useRef();
   const [taskText, setTaskText] = useState(props.text);
 
   const removeTaskHandler = () => {
-    props.onRemoveTask(props.id);
+    ctx.removeTask(props.id);
   };
   const compleateTaskHandler = () => {
-    props.onCompleateTask(props.id);
+    ctx.compleateTask(props.id);
   };
   const showOptionsHandler = () => {
     setShowOptions((prev) => !prev);
@@ -53,6 +55,7 @@ const Task = (props) => {
             onBlur={() => {
               setIsEditing(false);
               setTaskText(editingInputRef.current.value);
+              ctx.editTask(props.id, editingInputRef.current.value);
             }}
           ></input>
         )}
@@ -67,7 +70,7 @@ const Task = (props) => {
         {showOptions && (
           <Card className={classes.menu}>
             <button onClick={removeTaskHandler}>Delete</button>
-            <button>Sub task</button>
+            <button>Sub task(inc)</button>
           </Card>
         )}
       </li>

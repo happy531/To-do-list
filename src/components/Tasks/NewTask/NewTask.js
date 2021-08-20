@@ -1,9 +1,11 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
+import TasksListContext from "../../store/tasks-list-context";
 import Card from "../../UI/Card/Card";
 import classes from "./NewTask.module.css";
 
 const NewTask = (props) => {
   const [inputIsValid, setInputIsValid] = useState(true);
+  const ctx = useContext(TasksListContext);
   const inputRef = useRef();
 
   const addNewTaskHandler = (event) => {
@@ -17,7 +19,7 @@ const NewTask = (props) => {
       }, 1250);
       return;
     }
-    props.onAddNewTask(taskText);
+    ctx.addTask(taskText);
 
     inputRef.current.value = "";
   };
@@ -33,7 +35,6 @@ const NewTask = (props) => {
               ? "What's your new task?"
               : "You're trying to add an empty task"
           }
-          // value={}
           ref={inputRef}
         ></input>
       </form>
