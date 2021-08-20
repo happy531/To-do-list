@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useRef } from "react";
 import TaskDoneButton from "../../UI/Buttons/TaskDoneButton";
 import TaskOptionsButton from "../../UI/Buttons/TaskOptionsButton";
 import Card from "../../UI/Card/Card";
@@ -8,6 +8,10 @@ import classes from "./Task.module.css";
 const Task = (props) => {
   const [showOptionsButton, setShowOptionsButton] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const editingInputRef = useRef();
+  const [taskText, setTaskText] = useState(props.text);
 
   const removeTaskHandler = () => {
     props.onRemoveTask(props.id);
@@ -29,10 +33,35 @@ const Task = (props) => {
         <div>
           <TaskDoneButton onClick={compleateTaskHandler} />
         </div>
-        <label className={classes["task-text"]}>{props.text}</label>
+        {!isEditing ? (
+          <label
+            htmlFor={"task-text"}
+            className={classes["task-text"]}
+            onClick={() => {
+              setIsEditing(true);
+            }}
+          >
+            {taskText}
+          </label>
+        ) : (
+          <input
+            className={classes["task-editing-input"]}
+            id={"task-text"}
+            type="text"
+            defaultValue={taskText}
+            ref={editingInputRef}
+            onBlur={() => {
+              setIsEditing(false);
+              setTaskText(editingInputRef.current.value);
+            }}
+          ></input>
+        )}
         <div>
           {showOptionsButton && (
-            <TaskOptionsButton onClick={showOptionsHandler} />
+            <TaskOptionsButton
+              className={classes.options}
+              onClick={showOptionsHandler}
+            />
           )}
         </div>
         {showOptions && (

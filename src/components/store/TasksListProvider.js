@@ -25,8 +25,8 @@ const TasksListProvider = (props) => {
     defaultTasksListState
   );
 
-  const addTaskToListHandler = (item) => {
-    dispatch({ type: "ADD", item: item });
+  const addTaskToListHandler = (text) => {
+    dispatch({ type: "ADD", text: text });
   };
   const compleateTaskFromListHandler = (id) => {
     dispatch({ type: "COMPLEATE", id: id });
