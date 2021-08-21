@@ -32,7 +32,7 @@ const Task = (props) => {
     ctx.editTask(props.id, editingInputRef.current.value);
   };
 
-  //immidietly focus input after clink on task text (label)
+  //immidietly focus input after click on task text (label)
   useEffect(() => {
     if (isEditing) editingInputRef.current.focus();
   }, [isEditing]);

@@ -12,12 +12,12 @@ li {
   border: 1px solid #ccc;
 }
 
-li button.options {
-  background-color: transparent;
-}
-
 li:hover {
   background-color: #f5f5f5;
+}
+
+li button.options {
+  background-color: transparent;
 }
 
 .task-text {
