@@ -1,4 +1,4 @@
-import { Fragment, useState, useRef, useContext } from "react";
+import { Fragment, useState, useRef, useContext, useEffect } from "react";
 import TasksListContext from "../../store/tasks-list-context";
 import TaskDoneButton from "../../UI/Buttons/TaskDoneButton";
 import TaskOptionsButton from "../../UI/Buttons/TaskOptionsButton";
@@ -25,6 +25,18 @@ const Task = (props) => {
   const showOptionsHandler = () => {
     setShowOptions((prev) => !prev);
   };
+
+  const handleTaskEditing = () => {
+    setIsEditing((prev) => !prev);
+    setTaskText(editingInputRef.current.value);
+    ctx.editTask(props.id, editingInputRef.current.value);
+  };
+
+  //immidietly focus input after clink on task text (label)
+  useEffect(() => {
+    if (isEditing) editingInputRef.current.focus();
+  }, [isEditing]);
+
   return (
     <Fragment>
       <li
@@ -42,7 +54,6 @@ const Task = (props) => {
             className={classes["task-text"]}
             onClick={() => {
               setIsEditing((prev) => !prev);
-              console.log(isEditing);
             }}
           >
             {taskText}
@@ -54,11 +65,7 @@ const Task = (props) => {
             type="text"
             defaultValue={taskText}
             ref={editingInputRef}
-            onBlur={() => {
-              setIsEditing((prev) => !prev);
-              setTaskText(editingInputRef.current.value);
-              ctx.editTask(props.id, editingInputRef.current.value);
-            }}
+            onBlur={handleTaskEditing}
           ></input>
         )}
         <div>
