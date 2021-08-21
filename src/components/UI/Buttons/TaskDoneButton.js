@@ -4,6 +4,7 @@ const TaskDoneButton = (props) => {
     <button
       className={`${classes.button} ${classes.done} ${props.className}`}
       type={props.type || "button"}
+      disabled={props.disabled}
       onClick={props.onClick}
     >
       <svg

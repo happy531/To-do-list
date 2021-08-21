@@ -25,6 +25,17 @@
   border-color: #b3eed1;
 }
 
+.button.done:disabled,
+.button.done:disabled:hover,
+.button.done:disabled:active {
+  /* border-color: #e6e6e6; */
+  border: none;
+  background: none;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+  cursor: auto;
+  color: #cfcece;
+}
+
 .button:focus {
   outline: none;
 }

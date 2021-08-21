@@ -19,7 +19,8 @@ const Task = (props) => {
     ctx.removeTask(props.id);
   };
   const compleateTaskHandler = () => {
-    ctx.compleateTask(props.id);
+    if (!isEditing) ctx.compleateTask(props.id);
+    console.log(isEditing);
   };
   const showOptionsHandler = () => {
     setShowOptions((prev) => !prev);
@@ -33,14 +34,15 @@ const Task = (props) => {
         }
       >
         <div>
-          <TaskDoneButton onClick={compleateTaskHandler} />
+          <TaskDoneButton disabled={isEditing} onClick={compleateTaskHandler} />
         </div>
         {!isEditing ? (
           <label
             htmlFor={"task-text"}
             className={classes["task-text"]}
             onClick={() => {
-              setIsEditing(true);
+              setIsEditing((prev) => !prev);
+              console.log(isEditing);
             }}
           >
             {taskText}
@@ -53,7 +55,7 @@ const Task = (props) => {
             defaultValue={taskText}
             ref={editingInputRef}
             onBlur={() => {
-              setIsEditing(false);
+              setIsEditing((prev) => !prev);
               setTaskText(editingInputRef.current.value);
               ctx.editTask(props.id, editingInputRef.current.value);
             }}

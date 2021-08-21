@@ -2,7 +2,9 @@ import classes from "./Card.module.css";
 
 function Card(props) {
   return (
-    <div className={`${classes.card} ${props.className}`}>{props.children}</div>
+    <div {...props} className={`${classes.card} ${props.className}`}>
+      {props.children}
+    </div>
   );
 }
 
