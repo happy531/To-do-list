@@ -1,0 +1,42 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: inherit;
+  width: 3vh;
+  height: 3vh;
+  border: 1px solid #4d4d4d;
+  border-radius: 50%;
+  background: whitesmoke;
+  color: #4d4d4d;
+  cursor: pointer;
+  transition: 0.25s;
+  &:focus {
+    outline: none;
+  }
+  svg {
+    width: 85%;
+    height: 85%;
+  }
+}
+
+.remove {
+  border-radius: 0%;
+  background-color: transparent;
+  border: none;
+}
+
+.done {
+  &:hover,
+  &:active {
+    background: #b3eed1;
+    border-color: #b3eed1;
+  }
+  &:disabled {
+    border: none;
+    background: none;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+    cursor: auto;
+    color: #cfcece;
+  }
+}

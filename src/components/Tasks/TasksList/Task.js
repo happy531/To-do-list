@@ -1,14 +1,11 @@
 import { Fragment, useState, useRef, useContext, useEffect } from "react";
 import TasksListContext from "../../store/tasks-list-context";
 import TaskDoneButton from "../../UI/Buttons/TaskDoneButton";
-import TaskOptionsButton from "../../UI/Buttons/TaskOptionsButton";
-import Card from "../../UI/Card/Card";
+import TaskRemoveButton from "../../UI/Buttons/TaskRemoveButton";
 
-import classes from "./Task.module.css";
+import classes from "./Task.module.scss";
 
 const Task = (props) => {
-  const [showOptionsButton, setShowOptionsButton] = useState(false);
-  const [showOptions, setShowOptions] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
   const ctx = useContext(TasksListContext);
@@ -21,9 +18,6 @@ const Task = (props) => {
   const compleateTaskHandler = () => {
     if (!isEditing) ctx.compleateTask(props.id);
     console.log(isEditing);
-  };
-  const showOptionsHandler = () => {
-    setShowOptions((prev) => !prev);
   };
 
   const handleTaskEditing = () => {
@@ -39,12 +33,7 @@ const Task = (props) => {
 
   return (
     <Fragment>
-      <li
-        onMouseOver={() => setShowOptionsButton(true)}
-        onMouseLeave={() =>
-          showOptions ? setShowOptionsButton(true) : setShowOptionsButton(false)
-        }
-      >
+      <li>
         <div>
           <TaskDoneButton disabled={isEditing} onClick={compleateTaskHandler} />
         </div>
@@ -68,20 +57,10 @@ const Task = (props) => {
             onBlur={handleTaskEditing}
           ></input>
         )}
-        <div>
-          {showOptionsButton && (
-            <TaskOptionsButton
-              className={classes.options}
-              onClick={showOptionsHandler}
-            />
-          )}
-        </div>
-        {showOptions && (
-          <Card className={classes.menu}>
-            <button onClick={removeTaskHandler}>Delete</button>
-            <button>Sub task(inc)</button>
-          </Card>
-        )}
+        <TaskRemoveButton
+          className={classes.remove}
+          onClick={removeTaskHandler}
+        />
       </li>
     </Fragment>
   );

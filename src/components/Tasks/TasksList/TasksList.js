@@ -3,7 +3,7 @@ import Task from "./Task";
 import Card from "../../UI/Card/Card";
 import TasksListContext from "../../store/tasks-list-context";
 
-import classes from "./TasksList.module.css";
+import classes from "./TasksList.module.scss";
 
 const TasksList = (props) => {
   const ctx = useContext(TasksListContext);

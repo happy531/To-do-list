@@ -2,9 +2,10 @@ import { useState, useContext, useLayoutEffect, useRef } from "react";
 import TasksListContext from "../../store/tasks-list-context";
 import Card from "../../UI/Card/Card";
 import CompleatedTask from "./CompleatedTask";
-import classes from "./CompleatedTaskStorage.module.css";
 
-const CompleatedTaskStorage = (props) => {
+import classes from "./CompleatedTasksList.module.scss";
+
+const CompleatedTasksList = (props) => {
   const ctx = useContext(TasksListContext);
 
   const [showCompleated, setShowCompleated] = useState(false);
@@ -28,8 +29,11 @@ const CompleatedTaskStorage = (props) => {
   }, [showCompleated]);
 
   return (
-    <Card className={classes.storage}>
-      <div className={classes["storage-content"]} onClick={showCompleatedTasks}>
+    <Card className={classes["compleated-tasks"]}>
+      <div
+        className={classes["compleated-tasks-content"]}
+        onClick={showCompleatedTasks}
+      >
         <p>Compleated tasks</p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -39,7 +43,10 @@ const CompleatedTaskStorage = (props) => {
           className={svgAnimation}
           viewBox="0 0 16 16"
         >
-          <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+          <path
+            fillRule="evenodd"
+            d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+          />
         </svg>
       </div>
       {showCompleated && (
@@ -53,4 +60,4 @@ const CompleatedTaskStorage = (props) => {
   );
 };
 
-export default CompleatedTaskStorage;
+export default CompleatedTasksList;

@@ -1,9 +1,10 @@
-import classes from "./TaskButton.module.css";
+import classes from "./TaskButton.module.scss";
 const TaskDoneButton = (props) => {
   return (
     <button
       className={`${classes.button} ${classes.done} ${props.className}`}
       type={props.type || "button"}
+      style={props.style}
       disabled={props.disabled}
       onClick={props.onClick}
     >
