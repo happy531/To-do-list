@@ -33,9 +33,9 @@ const Task = (props) => {
 
   return (
     <Fragment>
-      <li>
+      <li className={classes.tasks}>
         <div>
-          <TaskDoneButton disabled={isEditing} onClick={compleateTaskHandler} />
+          <TaskDoneButton onClick={compleateTaskHandler} />
         </div>
         {!isEditing ? (
           <label
