@@ -27,7 +27,7 @@ const NewTask = (props) => {
 
   return (
     <Card className={classes.input}>
-      <form onSubmit={addNewTaskHandler}>
+      <form onSubmit={addNewTaskHandler} autoComplete="off">
         <input
           id="taskname"
           type="text"

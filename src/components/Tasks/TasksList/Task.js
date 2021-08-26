@@ -53,6 +53,7 @@ const Task = (props) => {
           className={classes["task-editing-input"]}
           id={"task-text"}
           type="text"
+          autoComplete="off"
           defaultValue={taskText}
           ref={editingInputRef}
           onBlur={handleTaskEditing}
