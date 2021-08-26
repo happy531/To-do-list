@@ -1,4 +1,4 @@
-import { Fragment, useState, useRef, useContext, useEffect } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import TasksListContext from "../../store/tasks-list-context";
 import TaskDoneButton from "../../UI/Buttons/TaskDoneButton";
 import TaskRemoveButton from "../../UI/Buttons/TaskRemoveButton";
@@ -15,15 +15,17 @@ const Task = (props) => {
   const removeTaskHandler = () => {
     ctx.removeTask(props.id);
   };
+
   const compleateTaskHandler = () => {
     if (!isEditing) ctx.compleateTask(props.id);
-    console.log(isEditing);
   };
 
   const handleTaskEditing = () => {
     setIsEditing((prev) => !prev);
     setTaskText(editingInputRef.current.value);
     ctx.editTask(props.id, editingInputRef.current.value);
+    if (editingInputRef.current.value.trim().length === 0)
+      ctx.removeTask(props.id);
   };
 
   //immidietly focus input after click on task text (label)
@@ -32,37 +34,35 @@ const Task = (props) => {
   }, [isEditing]);
 
   return (
-    <Fragment>
-      <li className={classes.tasks}>
-        <div>
-          <TaskDoneButton onClick={compleateTaskHandler} />
-        </div>
-        {!isEditing ? (
-          <label
-            htmlFor={"task-text"}
-            className={classes["task-text"]}
-            onClick={() => {
-              setIsEditing((prev) => !prev);
-            }}
-          >
-            {taskText}
-          </label>
-        ) : (
-          <input
-            className={classes["task-editing-input"]}
-            id={"task-text"}
-            type="text"
-            defaultValue={taskText}
-            ref={editingInputRef}
-            onBlur={handleTaskEditing}
-          ></input>
-        )}
-        <TaskRemoveButton
-          className={classes.remove}
-          onClick={removeTaskHandler}
-        />
-      </li>
-    </Fragment>
+    <li className={classes.tasks}>
+      <div>
+        <TaskDoneButton onClick={compleateTaskHandler} />
+      </div>
+      {!isEditing ? (
+        <label
+          htmlFor={"task-text"}
+          className={classes["task-text"]}
+          onClick={() => {
+            setIsEditing((prev) => !prev);
+          }}
+        >
+          {taskText}
+        </label>
+      ) : (
+        <input
+          className={classes["task-editing-input"]}
+          id={"task-text"}
+          type="text"
+          defaultValue={taskText}
+          ref={editingInputRef}
+          onBlur={handleTaskEditing}
+        ></input>
+      )}
+      <TaskRemoveButton
+        className={classes.remove}
+        onClick={removeTaskHandler}
+      />
+    </li>
   );
 };
 

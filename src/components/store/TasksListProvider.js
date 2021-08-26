@@ -3,12 +3,12 @@ import TasksListContext from "./tasks-list-context";
 
 const defaultTasksListState = {
   tasksList: [
-    { id: Math.random().toString(), text: "Your first task" },
-    { id: Math.random().toString(), text: "Your second task" },
+    { id: Math.random().toString(), text: "take dog on a walk" },
+    { id: Math.random().toString(), text: "do the dishes" },
   ],
   compleatedTasksList: [
-    { id: Math.random().toString(), text: "Your first compleated task" },
-    { id: Math.random().toString(), text: "Your second compleated task" },
+    { id: Math.random().toString(), text: "buy a milk" },
+    { id: Math.random().toString(), text: "finish the frontend" },
   ],
 };
 
@@ -36,9 +36,12 @@ const tasksListReducer = (state, action) => {
   }
   if (action.type === "REMOVE") {
     const newList = state.tasksList.filter((task) => task.id !== action.id);
+    const newCompleatedList = state.compleatedTasksList.filter(
+      (task) => task.id !== action.id
+    );
     return {
       tasksList: newList,
-      compleatedTasksList: [...state.compleatedTasksList],
+      compleatedTasksList: newCompleatedList,
     };
   }
   if (action.type === "EDIT") {
@@ -52,6 +55,22 @@ const tasksListReducer = (state, action) => {
     return {
       tasksList: newList,
       compleatedTasksList: [...state.compleatedTasksList],
+    };
+  }
+  if (action.type === "UNDO") {
+    const newCompleatedList = state.compleatedTasksList.filter(
+      (task) => task.id !== action.id
+    );
+    const [undoTask] = state.compleatedTasksList.filter(
+      (task) => task.id === action.id
+    );
+    const newList = [
+      ...state.tasksList,
+      { id: undoTask.id, text: undoTask.text },
+    ];
+    return {
+      tasksList: newList,
+      compleatedTasksList: newCompleatedList,
     };
   }
 
@@ -76,6 +95,9 @@ const TasksListProvider = (props) => {
   const editTaskHandler = (id, text) => {
     dispatch({ type: "EDIT", id: id, text: text });
   };
+  const undoTaskCompleateHandler = (id) => {
+    dispatch({ type: "UNDO", id: id });
+  };
 
   const tasksListContext = {
     tasksList: tasksListState.tasksList,
@@ -84,6 +106,7 @@ const TasksListProvider = (props) => {
     compleateTask: compleateTaskFromListHandler,
     removeTask: removeTaskFromListHandler,
     editTask: editTaskHandler,
+    undoCompleateTask: undoTaskCompleateHandler,
   };
 
   return (

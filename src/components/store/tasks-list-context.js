@@ -7,6 +7,7 @@ const TasksListContext = React.createContext({
   compleateTask: (id) => {},
   removeTask: (id) => {},
   editTask: (id, text) => {},
+  undoCompleateTask: (id) => {},
 });
 
 export default TasksListContext;
