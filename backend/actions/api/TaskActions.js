@@ -1,32 +1,56 @@
 const Task = require("../../db/models/task");
 
 class TaskActions {
-  getTasks(req, res) {
-    res.send("API works!");
+  async getTasks(req, res) {
+    let doc;
+
+    try {
+      doc = await Task.find({});
+      // throw new Error("Something went wrong :(");
+    } catch (err) {
+      return res.status(500).json({ message: err.message });
+    }
+
+    res.status(200).json(doc);
   }
 
-  getTask(req, res) {
-    res.send("task info!");
+  async getTask(req, res) {
+    const id = req.params.id;
+    const task = await Task.findOne({ _id: id });
+    res.status(200).json(task);
   }
 
-  saveTask(req, res) {
-    // const newTask = new Task({ text: "test task" });
-    // newTask.save().then(() => {
-    //   console.log("task saved!");
-    // });
+  async saveTask(req, res) {
+    const text = req.body.text;
+    let newTask;
 
+    try {
+      newTask = new Task({
+        text: text,
+      });
+      await newTask.save();
+    } catch (err) {
+      return res.status(422).json({ message: err.message });
+    }
+
+    res.status(201).json(newTask);
+  }
+
+  async updateTask(req, res) {
+    const id = req.params.id;
     const text = req.body.text;
 
-    res.send("task has been created! text: " + text);
+    const task = await Task.findOne({ _id: id });
+    task.text = text;
+    await task.save();
+
+    res.status(201).json(task);
   }
 
-  updateTask(req, res) {
-    res.send("task updated");
-  }
-
-  deleteTask(req, res) {
+  async deleteTask(req, res) {
     const id = req.params.id;
-    res.send("task deleted. ID: " + id);
+    await Task.deleteOne({ _id: id });
+    res.status(204).send();
   }
 }
 
