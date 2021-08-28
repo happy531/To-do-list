@@ -1,26 +1,28 @@
-import { useState, useRef, useContext } from "react";
+import { useRef, useContext } from "react";
 import TasksListContext from "../../store/tasks-list-context";
 import Card from "../../UI/Card/Card";
+import axios from "axios";
 
 import classes from "./NewTask.module.scss";
 
 const NewTask = (props) => {
-  const [inputIsValid, setInputIsValid] = useState(true);
   const ctx = useContext(TasksListContext);
   const inputRef = useRef();
 
-  const addNewTaskHandler = (event) => {
+  const addNewTaskHandler = async (event) => {
     event.preventDefault();
 
     const taskText = inputRef.current.value;
-    if (taskText.trim().length === 0) {
-      setInputIsValid(false);
-      setTimeout(() => {
-        setInputIsValid(true);
-      }, 1250);
-      return;
-    }
-    ctx.addTask(taskText);
+    if (taskText.trim().length === 0) return;
+
+    //add to backend
+    const res = await axios.post("http://localhost:3001/api/tasks", {
+      text: taskText,
+    });
+    const newTask = res.data;
+
+    //add to front
+    ctx.addTask(newTask);
 
     inputRef.current.value = "";
   };
@@ -31,11 +33,7 @@ const NewTask = (props) => {
         <input
           id="taskname"
           type="text"
-          placeholder={
-            inputIsValid
-              ? "What's your new task?"
-              : "You're trying to add an empty task"
-          }
+          placeholder="What's your new task?"
           ref={inputRef}
         ></input>
       </form>

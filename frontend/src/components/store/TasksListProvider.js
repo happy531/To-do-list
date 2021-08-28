@@ -1,11 +1,9 @@
 import { useReducer } from "react";
 import TasksListContext from "./tasks-list-context";
+import axios from "axios";
 
 const defaultTasksListState = {
-  tasksList: [
-    { id: Math.random().toString(), text: "take dog on a walk" },
-    { id: Math.random().toString(), text: "do the dishes" },
-  ],
+  tasksList: [],
   compleatedTasksList: [
     { id: Math.random().toString(), text: "buy a milk" },
     { id: Math.random().toString(), text: "finish the frontend" },
@@ -13,12 +11,24 @@ const defaultTasksListState = {
 };
 
 const tasksListReducer = (state, action) => {
+  if (action.type === "FETCH-TASKS") {
+    const newList = [];
+
+    action.tasks.forEach((task) =>
+      newList.push({ id: task._id, text: task.text })
+    );
+
+    return {
+      tasksList: newList,
+      compleatedTasksList: [...state.compleatedTasksList],
+    };
+  }
+
   if (action.type === "ADD") {
     const newList = [
       ...state.tasksList,
-      { id: Math.random().toString(), text: action.text },
+      { id: action.task._id, text: action.task.text },
     ];
-
     return {
       tasksList: newList,
       compleatedTasksList: [...state.compleatedTasksList],
@@ -83,8 +93,8 @@ const TasksListProvider = (props) => {
     defaultTasksListState
   );
 
-  const addTaskToListHandler = (text) => {
-    dispatch({ type: "ADD", text: text });
+  const addTaskToListHandler = (task) => {
+    dispatch({ type: "ADD", task: task });
   };
   const compleateTaskFromListHandler = (id) => {
     dispatch({ type: "COMPLEATE", id: id });
@@ -98,6 +108,9 @@ const TasksListProvider = (props) => {
   const undoTaskCompleateHandler = (id) => {
     dispatch({ type: "UNDO", id: id });
   };
+  const fetchTasks = (tasks) => {
+    dispatch({ type: "FETCH-TASKS", tasks: tasks });
+  };
 
   const tasksListContext = {
     tasksList: tasksListState.tasksList,
@@ -107,6 +120,7 @@ const TasksListProvider = (props) => {
     removeTask: removeTaskFromListHandler,
     editTask: editTaskHandler,
     undoCompleateTask: undoTaskCompleateHandler,
+    fetchTasks: fetchTasks,
   };
 
   return (
