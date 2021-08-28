@@ -1,6 +1,5 @@
 import { useReducer } from "react";
 import TasksListContext from "./tasks-list-context";
-import axios from "axios";
 
 const defaultTasksListState = {
   tasksList: [],

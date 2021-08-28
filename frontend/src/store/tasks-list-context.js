@@ -3,11 +3,12 @@ import React from "react";
 const TasksListContext = React.createContext({
   tasksList: [],
   compleatedTasksList: [],
-  addTask: (item) => {},
+  addTask: (task) => {},
   compleateTask: (id) => {},
   removeTask: (id) => {},
   editTask: (id, text) => {},
   undoCompleateTask: (id) => {},
+  fetchTasks: (tasks) => {},
 });
 
 export default TasksListContext;

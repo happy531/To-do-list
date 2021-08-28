@@ -1,7 +1,7 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useCallback } from "react";
 import Task from "./Task";
 import Card from "../../UI/Card/Card";
-import TasksListContext from "../../store/tasks-list-context";
+import TasksListContext from "../../../store/tasks-list-context";
 import axios from "axios";
 
 import classes from "./TasksList.module.scss";
@@ -9,15 +9,21 @@ import classes from "./TasksList.module.scss";
 const TasksList = (props) => {
   const ctx = useContext(TasksListContext);
 
+  const handleTaskFetch = useCallback(
+    (tasks) => {
+      ctx.fetchTasks(tasks);
+    },
+    [ctx]
+  );
+
   useEffect(() => {
     async function fetchTasks() {
       const res = await axios.get("http://localhost:3001/api/tasks");
-      console.log(res);
       const tasks = res.data;
-      ctx.fetchTasks(tasks);
+      handleTaskFetch(tasks);
     }
     fetchTasks();
-  }, []);
+  }, [handleTaskFetch]);
 
   return (
     <Card className={classes.tasks}>

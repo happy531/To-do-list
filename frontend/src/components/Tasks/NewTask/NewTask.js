@@ -1,7 +1,7 @@
 import { useRef, useContext } from "react";
-import TasksListContext from "../../store/tasks-list-context";
+import TasksListContext from "../../../store/tasks-list-context";
 import Card from "../../UI/Card/Card";
-import axios from "axios";
+import axios from "../../../axios/axios";
 
 import classes from "./NewTask.module.scss";
 
@@ -16,7 +16,7 @@ const NewTask = (props) => {
     if (taskText.trim().length === 0) return;
 
     //add to backend
-    const res = await axios.post("http://localhost:3001/api/tasks", {
+    const res = await axios.post("/tasks", {
       text: taskText,
     });
     const newTask = res.data;

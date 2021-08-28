@@ -1,7 +1,8 @@
 import { useState, useRef, useContext, useEffect } from "react";
-import TasksListContext from "../../store/tasks-list-context";
+import TasksListContext from "../../../store/tasks-list-context";
 import TaskDoneButton from "../../UI/Buttons/TaskDoneButton";
 import TaskRemoveButton from "../../UI/Buttons/TaskRemoveButton";
+import axios from "../../../axios/axios";
 
 import classes from "./Task.module.scss";
 
@@ -12,7 +13,10 @@ const Task = (props) => {
   const editingInputRef = useRef();
   const [taskText, setTaskText] = useState(props.text);
 
-  const removeTaskHandler = () => {
+  const removeTaskHandler = async () => {
+    //remove on backend
+    await axios.delete("/tasks/" + props.id);
+    //remove on front
     ctx.removeTask(props.id);
   };
 
@@ -20,12 +24,25 @@ const Task = (props) => {
     if (!isEditing) ctx.compleateTask(props.id);
   };
 
-  const handleTaskEditing = () => {
-    setIsEditing((prev) => !prev);
-    setTaskText(editingInputRef.current.value);
-    ctx.editTask(props.id, editingInputRef.current.value);
-    if (editingInputRef.current.value.trim().length === 0)
+  const handleTaskEditing = async () => {
+    //edit on backend
+    const res = await axios.put("/tasks/" + props.id, {
+      _id: props.id,
+      text: editingInputRef.current.value,
+    });
+
+    //edit on front
+    setIsEditing(false);
+    setTaskText(res.data.text);
+    ctx.editTask(res.data._id, res.data.text);
+
+    //if edited text is empty
+    if (!res.data.text.trim()) {
+      //remove on backend
+      await axios.delete("/tasks/" + props.id);
+      //remove on front
       ctx.removeTask(props.id);
+    }
   };
 
   //immidietly focus input after click on task text (label)
@@ -43,7 +60,7 @@ const Task = (props) => {
           htmlFor={"task-text"}
           className={classes["task-text"]}
           onClick={() => {
-            setIsEditing((prev) => !prev);
+            setIsEditing(true);
           }}
         >
           {taskText}

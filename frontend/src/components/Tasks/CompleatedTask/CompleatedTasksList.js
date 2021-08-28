@@ -1,5 +1,5 @@
 import { useState, useContext, useLayoutEffect, useRef } from "react";
-import TasksListContext from "../../store/tasks-list-context";
+import TasksListContext from "../../../store/tasks-list-context";
 import Card from "../../UI/Card/Card";
 import CompleatedTask from "./CompleatedTask";
 
