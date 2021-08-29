@@ -21,7 +21,9 @@ const Task = (props) => {
   };
 
   const compleateTaskHandler = () => {
-    if (!isEditing) ctx.compleateTask(props.id);
+    if (!isEditing) {
+      ctx.compleateTask(props.id);
+    }
   };
 
   const handleTaskEditing = async () => {

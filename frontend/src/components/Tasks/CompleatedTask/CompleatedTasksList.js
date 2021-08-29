@@ -1,15 +1,7 @@
-import {
-  useState,
-  useContext,
-  useLayoutEffect,
-  useRef,
-  useCallback,
-  useEffect,
-} from "react";
+import { useState, useContext, useLayoutEffect, useRef } from "react";
 import TasksListContext from "../../../store/tasks-list-context";
 import Card from "../../UI/Card/Card";
 import CompleatedTask from "./CompleatedTask";
-import axios from "../../../axios/axios";
 
 import classes from "./CompleatedTasksList.module.scss";
 
@@ -35,23 +27,6 @@ const CompleatedTasksList = (props) => {
       }`
     );
   }, [showCompleated]);
-
-  //fetch compleated-tasks on first render
-  const handleCompleatedTaskFetch = useCallback(
-    (tasks) => {
-      ctx.fetchCompleatedTasks(tasks);
-    },
-    [ctx]
-  );
-
-  useEffect(() => {
-    async function fetchCompleatedTasks() {
-      const res = await axios.get("/compleated-tasks");
-      const tasks = res.data;
-      handleCompleatedTaskFetch(tasks);
-    }
-    fetchCompleatedTasks();
-  }, [handleCompleatedTaskFetch]);
 
   return (
     <Card className={classes["compleated-tasks"]}>

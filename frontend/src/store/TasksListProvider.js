@@ -9,26 +9,18 @@ const defaultTasksListState = {
 const tasksListReducer = (state, action) => {
   if (action.type === "FETCH-TASKS") {
     const newList = [];
+    const newCompleatedList = [];
 
     action.tasks.forEach((task) =>
       newList.push({ id: task._id, text: task.text })
     );
 
-    return {
-      tasksList: newList,
-      compleatedTasksList: [...state.compleatedTasksList],
-    };
-  }
-
-  if (action.type === "FETCH-COMPLEATED-TASKS") {
-    const newCompleatedList = [];
-
-    action.tasks.forEach((task) =>
+    action.compleatedTasks.forEach((task) =>
       newCompleatedList.push({ id: task._id, text: task.text })
     );
 
     return {
-      tasksList: [...state.tasksList],
+      tasksList: newList,
       compleatedTasksList: newCompleatedList,
     };
   }
@@ -117,11 +109,12 @@ const TasksListProvider = (props) => {
   const undoTaskCompleateHandler = (id) => {
     dispatch({ type: "UNDO", id: id });
   };
-  const fetchTasks = (tasks) => {
-    dispatch({ type: "FETCH-TASKS", tasks: tasks });
-  };
-  const fetchCompleatedTasks = (tasks) => {
-    dispatch({ type: "FETCH-COMPLEATED-TASKS", tasks: tasks });
+  const fetchTasks = (tasks, compleatedTasks) => {
+    dispatch({
+      type: "FETCH-TASKS",
+      tasks: tasks,
+      compleatedTasks: compleatedTasks,
+    });
   };
 
   const tasksListContext = {
@@ -133,7 +126,6 @@ const TasksListProvider = (props) => {
     editTask: editTaskHandler,
     undoCompleateTask: undoTaskCompleateHandler,
     fetchTasks,
-    fetchCompleatedTasks,
   };
 
   return (
