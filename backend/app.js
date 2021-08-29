@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const { port } = require("./config");
+const { port } = require("./config/config");
 const apiRouter = require("./routes/api");
 const cors = require("cors");
 // const bodyParser = require("body-parser");

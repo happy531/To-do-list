@@ -3,10 +3,7 @@ import TasksListContext from "./tasks-list-context";
 
 const defaultTasksListState = {
   tasksList: [],
-  compleatedTasksList: [
-    { id: Math.random().toString(), text: "buy a milk" },
-    { id: Math.random().toString(), text: "finish the frontend" },
-  ],
+  compleatedTasksList: [],
 };
 
 const tasksListReducer = (state, action) => {
@@ -20,6 +17,19 @@ const tasksListReducer = (state, action) => {
     return {
       tasksList: newList,
       compleatedTasksList: [...state.compleatedTasksList],
+    };
+  }
+
+  if (action.type === "FETCH-COMPLEATED-TASKS") {
+    const newCompleatedList = [];
+
+    action.tasks.forEach((task) =>
+      newCompleatedList.push({ id: task._id, text: task.text })
+    );
+
+    return {
+      tasksList: [...state.tasksList],
+      compleatedTasksList: newCompleatedList,
     };
   }
 
@@ -110,6 +120,9 @@ const TasksListProvider = (props) => {
   const fetchTasks = (tasks) => {
     dispatch({ type: "FETCH-TASKS", tasks: tasks });
   };
+  const fetchCompleatedTasks = (tasks) => {
+    dispatch({ type: "FETCH-COMPLEATED-TASKS", tasks: tasks });
+  };
 
   const tasksListContext = {
     tasksList: tasksListState.tasksList,
@@ -119,7 +132,8 @@ const TasksListProvider = (props) => {
     removeTask: removeTaskFromListHandler,
     editTask: editTaskHandler,
     undoCompleateTask: undoTaskCompleateHandler,
-    fetchTasks: fetchTasks,
+    fetchTasks,
+    fetchCompleatedTasks,
   };
 
   return (

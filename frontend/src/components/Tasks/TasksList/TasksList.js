@@ -2,7 +2,7 @@ import { useContext, useEffect, useCallback } from "react";
 import Task from "./Task";
 import Card from "../../UI/Card/Card";
 import TasksListContext from "../../../store/tasks-list-context";
-import axios from "axios";
+import axios from "../../../axios/axios";
 
 import classes from "./TasksList.module.scss";
 
@@ -18,7 +18,7 @@ const TasksList = (props) => {
 
   useEffect(() => {
     async function fetchTasks() {
-      const res = await axios.get("http://localhost:3001/api/tasks");
+      const res = await axios.get("/tasks");
       const tasks = res.data;
       handleTaskFetch(tasks);
     }
