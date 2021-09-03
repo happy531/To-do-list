@@ -70,14 +70,12 @@ const tasksListReducer = (state, action) => {
   }
   if (action.type === "UNDO") {
     const newCompleatedList = state.compleatedTasksList.filter(
-      (task) => task.id !== action.id
+      (task) => task.id !== action.undoTask._id
     );
-    const [undoTask] = state.compleatedTasksList.filter(
-      (task) => task.id === action.id
-    );
+
     const newList = [
       ...state.tasksList,
-      { id: undoTask.id, text: undoTask.text },
+      { id: action.undoTask._id, text: action.undoTask.text },
     ];
     return {
       tasksList: newList,
@@ -106,8 +104,8 @@ const TasksListProvider = (props) => {
   const editTaskHandler = (id, text) => {
     dispatch({ type: "EDIT", id: id, text: text });
   };
-  const undoTaskCompleateHandler = (id) => {
-    dispatch({ type: "UNDO", id: id });
+  const undoTaskCompleateHandler = (undoTask) => {
+    dispatch({ type: "UNDO", undoTask: undoTask });
   };
   const fetchTasks = (tasks, compleatedTasks) => {
     dispatch({

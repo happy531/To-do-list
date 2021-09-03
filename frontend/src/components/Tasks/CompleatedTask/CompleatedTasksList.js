@@ -8,23 +8,21 @@ import classes from "./CompleatedTasksList.module.scss";
 const CompleatedTasksList = (props) => {
   const ctx = useContext(TasksListContext);
 
-  const [showCompleated, setShowCompleated] = useState(false);
-  const [svgAnimation, setSvgAnimation] = useState("bi bi-caret-down-fill");
+  const [showCompleated, setShowCompleated] = useState(true);
+  const [svgAnimation, setSvgAnimation] = useState("");
 
   const showCompleatedTasks = () => {
     setShowCompleated((prevState) => !prevState);
   };
 
-  const firstUpdate = useRef(true);
+  const initialRender = useRef(true);
   useLayoutEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
+    if (initialRender.current) {
+      initialRender.current = false;
       return;
     }
     setSvgAnimation(
-      `bi bi-caret-down-fill ${
-        showCompleated ? classes.rotate : classes["rotate-back"]
-      }`
+      `${showCompleated ? classes.rotate : classes["rotate-back"]}`
     );
   }, [showCompleated]);
 

@@ -20,10 +20,15 @@ const Task = (props) => {
     ctx.removeTask(props.id);
   };
 
-  const compleateTaskHandler = () => {
-    if (!isEditing) {
-      ctx.compleateTask(props.id);
-    }
+  const compleateTaskHandler = async () => {
+    //compleate on backend
+    await axios.post("/compleated-tasks/", {
+      text: taskText,
+    });
+    await axios.delete("/tasks/" + props.id);
+
+    //compleate on frontend
+    ctx.compleateTask(props.id);
   };
 
   const handleTaskEditing = async () => {

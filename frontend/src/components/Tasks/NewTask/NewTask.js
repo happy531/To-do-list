@@ -16,10 +16,12 @@ const NewTask = (props) => {
     if (taskText.trim().length === 0) return;
 
     //add to backend
-    const res = await axios.post("/tasks", {
+    const res = await axios.post("/tasks/", {
       text: taskText,
     });
     const newTask = res.data;
+
+    console.log(newTask);
 
     //add to front
     ctx.addTask(newTask);

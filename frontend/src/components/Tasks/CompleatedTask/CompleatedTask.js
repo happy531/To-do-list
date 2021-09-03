@@ -18,11 +18,15 @@ const CompleatedTask = (props) => {
 
   const handleUndoTaskCompleation = async () => {
     //undo on back
-    // await axios.post("/tasks/" + props.id);
-    // await axios.delete("/compleated-tasks/" + props.id);
+    const res = await axios.post("/tasks/", {
+      text: props.text,
+    });
+    await axios.delete("/compleated-tasks/" + props.id);
+
+    const undoTask = res.data;
 
     //undo on front
-    ctx.undoCompleateTask(props.id);
+    ctx.undoCompleateTask(undoTask);
   };
 
   return (
