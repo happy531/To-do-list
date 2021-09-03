@@ -22,10 +22,11 @@
     cursor: pointer;
   }
 
-  ul {
+  .compleated-tasks-list {
     width: 100%;
     list-style: none;
   }
+
   .rotate {
     animation: rotate 0.15s linear forwards;
   }

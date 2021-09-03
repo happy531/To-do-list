@@ -1,4 +1,4 @@
-li.compleated-tasks {
+.compleated-task {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -15,18 +15,18 @@ li.compleated-tasks {
     max-width: 30vw;
   }
 
-  button.remove {
+  .remove {
     opacity: 0;
     color: rgb(223, 78, 62);
     @media (max-width: 1023px) {
       opacity: 1;
     }
   }
-  &:hover button.remove {
+  &:hover .remove {
     opacity: 1;
   }
 
-  button.undo {
+  .undo {
     border: none;
     background: none;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
@@ -35,7 +35,7 @@ li.compleated-tasks {
     cursor: pointer;
   }
 
-  label.task-text {
+  .task-text {
     display: block;
     margin-left: 0.55vw;
     width: 100%;

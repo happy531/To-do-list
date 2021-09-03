@@ -21,8 +21,6 @@ const NewTask = (props) => {
     });
     const newTask = res.data;
 
-    console.log(newTask);
-
     //add to front
     ctx.addTask(newTask);
 
@@ -31,8 +29,13 @@ const NewTask = (props) => {
 
   return (
     <Card className={classes.input}>
-      <form onSubmit={addNewTaskHandler} autoComplete="off">
+      <form
+        className={classes["input-form"]}
+        onSubmit={addNewTaskHandler}
+        autoComplete="off"
+      >
         <input
+          className={classes["user-input"]}
           id="taskname"
           type="text"
           placeholder="What's your new task?"

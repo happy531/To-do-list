@@ -30,7 +30,7 @@ const CompleatedTask = (props) => {
   };
 
   return (
-    <li className={classes["compleated-tasks"]}>
+    <li className={classes["compleated-task"]}>
       <div>
         <TaskDoneButton
           className={classes.undo}

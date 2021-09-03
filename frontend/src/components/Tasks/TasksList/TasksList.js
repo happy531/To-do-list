@@ -10,9 +10,9 @@ const TasksList = (props) => {
 
   return (
     <Card className={classes.tasks}>
-      <ul>
-        {ctx.tasksList.map((task) => (
-          <Task key={task.id} id={task.id} text={task.text} />
+      <ul className={classes["tasks-list"]}>
+        {ctx.tasksList.map((task, index) => (
+          <Task key={`${task.id}${index}`} id={task.id} text={task.text} />
         ))}
       </ul>
     </Card>

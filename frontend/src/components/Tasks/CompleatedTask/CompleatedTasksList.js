@@ -8,11 +8,11 @@ import classes from "./CompleatedTasksList.module.scss";
 const CompleatedTasksList = (props) => {
   const ctx = useContext(TasksListContext);
 
-  const [showCompleated, setShowCompleated] = useState(true);
+  const [showCompleatedTasksList, setShowCompleatedTasksList] = useState(false);
   const [svgAnimation, setSvgAnimation] = useState("");
 
   const showCompleatedTasks = () => {
-    setShowCompleated((prevState) => !prevState);
+    setShowCompleatedTasksList((prevState) => !prevState);
   };
 
   const initialRender = useRef(true);
@@ -22,9 +22,9 @@ const CompleatedTasksList = (props) => {
       return;
     }
     setSvgAnimation(
-      `${showCompleated ? classes.rotate : classes["rotate-back"]}`
+      `${showCompleatedTasksList ? classes.rotate : classes["rotate-back"]}`
     );
-  }, [showCompleated]);
+  }, [showCompleatedTasksList]);
 
   return (
     <Card className={classes["compleated-tasks"]}>
@@ -47,8 +47,8 @@ const CompleatedTasksList = (props) => {
           />
         </svg>
       </div>
-      {showCompleated && (
-        <ul>
+      {showCompleatedTasksList && (
+        <ul className={classes["compleated-tasks-list"]}>
           {ctx.compleatedTasksList.map((task) => (
             <CompleatedTask key={task.id} id={task.id} text={task.text} />
           ))}

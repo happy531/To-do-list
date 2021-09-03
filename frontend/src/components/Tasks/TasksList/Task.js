@@ -58,7 +58,7 @@ const Task = (props) => {
   }, [isEditing]);
 
   return (
-    <li className={classes.tasks}>
+    <li className={classes.task}>
       <div>
         <TaskDoneButton onClick={compleateTaskHandler} />
       </div>

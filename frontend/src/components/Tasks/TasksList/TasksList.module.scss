@@ -2,16 +2,13 @@
   margin: 2rem auto;
   width: 90%;
 
-  ul {
+  .tasks-list {
     width: 100%;
     list-style: none;
+    margin-bottom: 4.25rem;
   }
 
   @media (orientation: landscape) {
     max-width: 30vw;
-
-    li {
-      max-width: 30vw;
-    }
   }
 }

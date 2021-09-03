@@ -1,4 +1,4 @@
-li.tasks {
+.task {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -10,22 +10,25 @@ li.tasks {
   color: #4d4d4d;
   padding: 0.5rem 0.6rem 0.5rem 1rem;
   border: 1px solid #ccc;
+  @media (orientation: landscape) {
+    max-width: 30vw;
+  }
   &:hover {
     background-color: #f5f5f5;
   }
 
-  button.remove {
+  .remove {
     opacity: 0;
     color: rgb(223, 78, 62);
     @media (max-width: 1023px) {
       opacity: 1;
     }
   }
-  &:hover button.remove {
+  &:hover .remove {
     opacity: 1;
   }
 
-  label.task-text {
+  .task-text {
     display: block;
     margin-left: 0.55vw;
     width: 100%;
@@ -34,7 +37,7 @@ li.tasks {
     }
   }
 
-  input.task-editing-input {
+  .task-editing-input {
     display: block;
     margin-left: 0.55vw;
     width: 100%;
