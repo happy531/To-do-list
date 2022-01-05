@@ -15,6 +15,7 @@ function App() {
       ctx.fetchTasks(tasks);
     }
     fetchTasks();
+    // eslint-disable-next-line
   }, []);
 
   return (

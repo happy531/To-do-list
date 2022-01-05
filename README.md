@@ -1,16 +1,26 @@
-### MERN full stack project
+## Frontend
+- Node 
+- ReactJS >
 
-## How to start
+## Backend
+- Node
+- Express
 
-Clone repo and run npm install and then npm start in both folders ( frontend and backend )
-You also have to set database, i used localhost for this project, here are some helpful links:
+## Database
+- Mongo
 
-## How to setup localhost MongoDB database
+### Clone repository
+### Docker
+[Download Docker Desktop](https://www.docker.com/get-started)
 
-https://stackoverflow.com/questions/20796714/how-do-i-start-mongo-db-from-windows
+Build containers by typing in console:
+```console
+docker-compose build
+```
 
-## MongoDB documentation
+To run my app type:
+```console
+docker-compose up
+```
 
-https://docs.mongodb.com/manual/reference/connection-string/
 
-### Its also fine to use MongoDB Atlas, which i recommend
