@@ -1,5 +1,5 @@
-import classes from "./TaskButton.module.scss";
-const TaskRemoveButton = (props) => {
+import classes from "./Button.module.scss";
+const RemoveButton = (props) => {
   return (
     <button
       className={`${classes.button} ${classes.remove} ${props.className}`}
@@ -20,4 +20,4 @@ const TaskRemoveButton = (props) => {
     </button>
   );
 };
-export default TaskRemoveButton;
+export default RemoveButton;

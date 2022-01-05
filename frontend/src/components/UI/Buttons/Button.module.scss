@@ -27,10 +27,14 @@
   border: none;
 }
 
-.done {
+.toggle {
   &:hover,
   &:active {
     background: #b3eed1;
     border-color: #b3eed1;
   }
+}
+
+.done {
+  opacity: 0.5;
 }

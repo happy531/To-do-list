@@ -1,37 +1,38 @@
 import { useState, useRef, useContext, useEffect } from "react";
 import TasksListContext from "../../../store/tasks-list-context";
-import TaskDoneButton from "../../UI/Buttons/TaskDoneButton";
-import TaskRemoveButton from "../../UI/Buttons/TaskRemoveButton";
+import ToggleButton from "../../UI/Buttons/ToggleButton";
+import RemoveButton from "../../UI/Buttons/RemoveButton";
 import axios from "../../../axios/axios";
 
 import classes from "./Task.module.scss";
 
 const Task = (props) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [isDone, setIsDone] = useState(props.isDone);
 
   const ctx = useContext(TasksListContext);
   const editingInputRef = useRef();
   const [taskText, setTaskText] = useState(props.text);
 
-  const removeTaskHandler = async () => {
+  const handleRemoveTask = async () => {
     //remove on backend
     await axios.delete("/tasks/" + props.id);
     //remove on front
     ctx.removeTask(props.id);
   };
 
-  const compleateTaskHandler = async () => {
-    //compleate on backend
-    await axios.post("/compleated-tasks/", {
-      text: taskText,
+  const handleToggleTask = async () => {
+    setIsDone((prev)=>!prev);
+    //do on backend
+    await axios.put("/tasks/" + props.id + "/toggle-do", {
+      isDone: !isDone,
     });
-    await axios.delete("/tasks/" + props.id);
 
-    //compleate on frontend
-    ctx.compleateTask(props.id);
+    //do on frontend
+    ctx.doTask(props.id);
   };
 
-  const handleTaskEditing = async () => {
+  const handleTaskEdit = async () => {
     //edit on backend
     const res = await axios.put("/tasks/" + props.id, {
       _id: props.id,
@@ -52,40 +53,40 @@ const Task = (props) => {
     }
   };
 
-  //immidietly focus input after click on task text (label)
+  //immediately focus input after click on task text (label)
   useEffect(() => {
     if (isEditing) editingInputRef.current.focus();
   }, [isEditing]);
 
   return (
-    <li className={classes.task}>
+    <li className={`${classes.task} ${props.isDone ? classes.done : ""}`}>
       <div>
-        <TaskDoneButton onClick={compleateTaskHandler} />
+        <ToggleButton onClick={handleToggleTask} isDone={isDone} />
       </div>
       {!isEditing ? (
         <label
           htmlFor={"task-text"}
           className={classes["task-text"]}
           onClick={() => {
-            setIsEditing(true);
+            if(!isDone) setIsEditing(true);
           }}
         >
           {taskText}
         </label>
       ) : (
-        <input
+          <input
           className={classes["task-editing-input"]}
           id={"task-text"}
           type="text"
           autoComplete="off"
           defaultValue={taskText}
           ref={editingInputRef}
-          onBlur={handleTaskEditing}
+          onBlur={handleTaskEdit}
         ></input>
       )}
-      <TaskRemoveButton
+      <RemoveButton
         className={classes.remove}
-        onClick={removeTaskHandler}
+        onClick={handleRemoveTask}
       />
     </li>
   );

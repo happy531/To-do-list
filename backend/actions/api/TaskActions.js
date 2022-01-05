@@ -27,6 +27,7 @@ class TaskActions {
     try {
       newTask = new Task({
         text: text,
+        isDone: false,
       });
       await newTask.save();
     } catch (err) {
@@ -42,6 +43,18 @@ class TaskActions {
 
     const task = await Task.findOne({ _id: id });
     task.text = text;
+    await task.save();
+
+    res.status(201).json(task);
+  }
+
+  async toggleDoTask(req, res){
+    const id = req.params.id;
+    const isDone = req.body.isDone;
+
+    const task = await Task.findOne({ _id: id });
+    if(isDone) task.isDone = true;
+    else task.isDone = false;
     await task.save();
 
     res.status(201).json(task);

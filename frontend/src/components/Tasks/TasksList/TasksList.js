@@ -12,7 +12,7 @@ const TasksList = (props) => {
     <Card className={classes.tasks}>
       <ul className={classes["tasks-list"]}>
         {ctx.tasksList.map((task, index) => (
-          <Task key={`${task.id}${index}`} id={task.id} text={task.text} />
+          <Task key={`${task.id}${index}`} id={task.id} text={task.text} isDone={task.isDone} />
         ))}
       </ul>
     </Card>

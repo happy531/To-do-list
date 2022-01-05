@@ -18,6 +18,7 @@ const NewTask = (props) => {
     //add to backend
     const res = await axios.post("/tasks/", {
       text: taskText,
+      isDone: false,
     });
     const newTask = res.data;
 

@@ -1,8 +1,8 @@
-import classes from "./TaskButton.module.scss";
-const TaskDoneButton = (props) => {
+import classes from "./Button.module.scss";
+const ToggleButton = (props) => {
   return (
     <button
-      className={`${classes.button} ${classes.done} ${props.className}`}
+      className={`${classes.button} ${classes.toggle} ${props.isDone ? classes.done : ""} ${props.className}`}
       type={props.type || "button"}
       style={props.style}
       disabled={props.disabled}
@@ -21,4 +21,4 @@ const TaskDoneButton = (props) => {
     </button>
   );
 };
-export default TaskDoneButton;
+export default ToggleButton;

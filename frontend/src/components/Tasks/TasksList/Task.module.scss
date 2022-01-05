@@ -45,9 +45,16 @@
     border: none;
     background-color: transparent;
     font-size: 2.5vh;
+    text-decoration: none;
     &:focus {
       outline: none;
       color: #4d4d4d;
     }
   }
+}
+
+.done {
+  text-decoration: line-through;
+  color: gainsboro;
+  background-color: whitesmoke;
 }

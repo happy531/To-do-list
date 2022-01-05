@@ -3,25 +3,20 @@ import TasksListContext from "./tasks-list-context";
 
 const defaultTasksListState = {
   tasksList: [],
-  compleatedTasksList: [],
 };
 
 const tasksListReducer = (state, action) => {
   if (action.type === "FETCH-TASKS") {
     const newList = [];
-    const newCompleatedList = [];
 
     action.tasks.forEach((task) =>
-      newList.push({ id: task._id, text: task.text })
+      newList.push({ id: task._id, text: task.text, isDone: task.isDone })
     );
 
-    action.compleatedTasks.forEach((task) =>
-      newCompleatedList.push({ id: task._id, text: task.text })
-    );
+    console.log(newList);
 
     return {
       tasksList: newList,
-      compleatedTasksList: newCompleatedList,
     };
   }
 
@@ -32,27 +27,22 @@ const tasksListReducer = (state, action) => {
     ];
     return {
       tasksList: newList,
-      compleatedTasksList: [...state.compleatedTasksList],
     };
   }
-  if (action.type === "COMPLEATE") {
-    const newList = state.tasksList.filter((task) => task.id !== action.id);
-    const [compleatedTask] = state.tasksList.filter(
-      (task) => task.id === action.id
-    );
+  if (action.type === "TOGGLE-DO") {
+    const index = state.tasksList.findIndex((task) => task.id === action.id);
+    const list = state.tasksList;
+    list[index].isDone = !list[index].isDone;
+
     return {
-      tasksList: newList,
-      compleatedTasksList: [...state.compleatedTasksList, compleatedTask],
+      tasksList: list,
     };
   }
   if (action.type === "REMOVE") {
     const newList = state.tasksList.filter((task) => task.id !== action.id);
-    const newCompleatedList = state.compleatedTasksList.filter(
-      (task) => task.id !== action.id
-    );
+
     return {
       tasksList: newList,
-      compleatedTasksList: newCompleatedList,
     };
   }
   if (action.type === "EDIT") {
@@ -65,21 +55,6 @@ const tasksListReducer = (state, action) => {
     }
     return {
       tasksList: newList,
-      compleatedTasksList: [...state.compleatedTasksList],
-    };
-  }
-  if (action.type === "UNDO") {
-    const newCompleatedList = state.compleatedTasksList.filter(
-      (task) => task.id !== action.undoTask._id
-    );
-
-    const newList = [
-      ...state.tasksList,
-      { id: action.undoTask._id, text: action.undoTask.text },
-    ];
-    return {
-      tasksList: newList,
-      compleatedTasksList: newCompleatedList,
     };
   }
 
@@ -92,42 +67,36 @@ const TasksListProvider = (props) => {
     defaultTasksListState
   );
 
-  const addTaskToListHandler = (task) => {
+  const handleAddTask = (task) => {
     dispatch({ type: "ADD", task: task });
   };
-  const compleateTaskFromListHandler = (id) => {
-    dispatch({ type: "COMPLEATE", id: id });
+  const handleToggleTask = (id) => {
+    dispatch({ type: "TOGGLE-DO", id: id });
   };
-  const removeTaskFromListHandler = (id) => {
+  const handleRemoveTask = (id) => {
     dispatch({ type: "REMOVE", id: id });
   };
-  const editTaskHandler = (id, text) => {
+  const handleEditTask = (id, text) => {
     dispatch({ type: "EDIT", id: id, text: text });
   };
-  const undoTaskCompleateHandler = (undoTask) => {
-    dispatch({ type: "UNDO", undoTask: undoTask });
-  };
-  const fetchTasks = (tasks, compleatedTasks) => {
+  const handleFetchTasks = (tasks) => {
     dispatch({
       type: "FETCH-TASKS",
       tasks: tasks,
-      compleatedTasks: compleatedTasks,
     });
   };
 
-  const tasksListContext = {
+  const context = {
     tasksList: tasksListState.tasksList,
-    compleatedTasksList: tasksListState.compleatedTasksList,
-    addTask: addTaskToListHandler,
-    compleateTask: compleateTaskFromListHandler,
-    removeTask: removeTaskFromListHandler,
-    editTask: editTaskHandler,
-    undoCompleateTask: undoTaskCompleateHandler,
-    fetchTasks,
+    addTask: handleAddTask,
+    doTask: handleToggleTask,
+    removeTask: handleRemoveTask,
+    editTask: handleEditTask,
+    fetchTasks: handleFetchTasks,
   };
 
   return (
-    <TasksListContext.Provider value={tasksListContext}>
+    <TasksListContext.Provider value={context}>
       {props.children}
     </TasksListContext.Provider>
   );
