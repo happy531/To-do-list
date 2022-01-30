@@ -30,10 +30,10 @@ services:
     ports:
       - "5000:5000"
     depends_on:
-      - mongo
+      - db
 #    env_file: ./server/.env
-#    environment:
-#      - DATABASE:mongodb://db:27017/to-do-app
+    environment:
+      - DATABASE:mongodb://db:27017/to-do-app
     networks:
       - app-network
   db:
@@ -51,8 +51,8 @@ networks:
     driver: bridge
 
 volumes:
-#  mongo-data:
-#    driver: local
+  mongo-data:
+    driver: local
   node_modules:
   web-root:
     driver: local

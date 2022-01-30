@@ -1,6 +1,6 @@
 ## Frontend
 - Node 
-- ReactJS >
+- ReactJS 
 
 ## Backend
 - Node
@@ -9,7 +9,6 @@
 ## Database
 - Mongo
 
-### Clone repository
 ### Docker
 [Download Docker Desktop](https://www.docker.com/get-started)
 
